@@ -2,15 +2,10 @@ package com.hotel_service.models;
 
 import com.hotel_service.stat.Role;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 /*
     @author Berkeshchuk
@@ -42,6 +37,26 @@ public class User {
 
     @Setter(value = AccessLevel.NONE)
     private Role role;
+
+    @Column(updatable = false)
+//    @Setter (AccessLevel.NONE)
+    LocalDateTime createdOn;
+//    = LocalDateTime.now();
+
+    @Column
+//    @Setter (AccessLevel.NONE)
+    LocalDateTime updatedOn;
+
+
+//    @PrePersist
+//    private void setCreatedOnValue(){
+//        createdOn = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    private void setUpdatedon(){
+//        updatedOn = LocalDateTime.now();
+//    }
 
 
     public void setRole(String role){

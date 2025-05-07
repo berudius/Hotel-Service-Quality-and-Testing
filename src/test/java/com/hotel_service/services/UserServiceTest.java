@@ -14,16 +14,13 @@ import com.hotel_service.models.User;
 import com.hotel_service.models_dto.UserDTO;
 import com.hotel_service.repository.UserRepository;
 import com.hotel_service.stat.Role;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -122,7 +119,14 @@ public class UserServiceTest {
         // given
         User user = new User( "Dave", "dave@mail.com", "pass", "000111000", Role.USER);
         int userId = repository.save(user).getId();
-        UserDTO updatedDto = new UserDTO(userId, "David", "dave@mail.com", "pass", "000111000", Role.ADMIN);
+        UserDTO updatedDto = UserDTO.builder()
+                .id(userId)
+                .name("David")
+                .email( "dave@mail.com")
+                .password("pass")
+                .mobileNumber("000111000")
+                .role(Role.ADMIN)
+                .build();
 
         // when
         ResponseEntity<?> response = underTest.updateUser(updatedDto);
@@ -136,7 +140,14 @@ public class UserServiceTest {
     @Test
     void updateUser_shouldReturnBadRequest_whenUserDoesNotExist() {
         // given
-        UserDTO dto = new UserDTO(777, "Ghost", "ghost@mail.com", "pass", "000", Role.USER);
+        UserDTO dto = UserDTO.builder()
+                .id(777)
+                .name("Ghost")
+                .email("ghost@mail.com")
+                .password("pass")
+                .mobileNumber("000")
+                .role(Role.USER)
+                .build();
 
         // when
         ResponseEntity<?> response = underTest.updateUser(dto);
@@ -275,8 +286,14 @@ public class UserServiceTest {
         // given
         User user = new User("John Doe", "john@example.com", "password123", "1234567890", Role.USER);
         int userId = repository.save(user).getId();
-        UserDTO updatedDTO = new UserDTO(userId, "John Smith", "john.smith@example.com", "newpassword123", "0987654321", Role.ADMIN);
-
+        UserDTO updatedDTO = UserDTO.builder()
+                .id(userId)
+                .name("John Smith")
+                .email("john.smith@example.com")
+                .password("newpassword123")
+                .mobileNumber("0987654321")
+                .role(Role.ADMIN)
+                .build();
         // when
         ResponseEntity<?> response = underTest.updateUser(updatedDTO);
 
@@ -291,7 +308,14 @@ public class UserServiceTest {
     @Test
     void whenUpdateUser_ThenReturnBadRequestForNonExistentUser() {
         // given
-        UserDTO updatedDTO = new UserDTO(999, "John Smith", "john.smith@example.com", "newpassword123", "0987654321", Role.ADMIN);
+        UserDTO updatedDTO = UserDTO.builder()
+                .id(999)
+                .name("John Smith")
+                .email("john.smith@example.com")
+                .password("newpassword123")
+                .mobileNumber("0987654321")
+                .role(Role.ADMIN)
+                .build();
 
         // when
         ResponseEntity<?> response = underTest.updateUser(updatedDTO);
@@ -352,8 +376,14 @@ public class UserServiceTest {
     @Test
     void whenAddUserWithMissingFields_ThenReturnInternalServerError() {
         // given
-        UserDTO userDTO = new UserDTO(1, "", "john@example.com", "password123", "1234567890", Role.USER);
-
+        UserDTO userDTO = UserDTO.builder()
+                .id(1)
+                .name("")
+                .email("john@example.com")
+                .password("password123")
+                .mobileNumber("1234567890")
+                .role(Role.USER)
+                .build();
         // when
         ResponseEntity<?> response = underTest.addUser(userDTO);
 
@@ -402,8 +432,14 @@ public class UserServiceTest {
         // given
         User user = new User( "Alice", "alice@example.com", "password456", "2345678901", Role.USER);
         int userId = repository.save(user).getId();
-        UserDTO updatedDTO = new UserDTO(userId, "Alice Updated", "alice.updated@example.com", "newpassword123", "9876543210", Role.ADMIN);
-
+        UserDTO updatedDTO = UserDTO.builder()
+                .id(userId)
+                .name("Alice Updated")
+                .email("alice.updated@example.com")
+                .password("newpassword123")
+                .mobileNumber("9876543210")
+                .role(Role.ADMIN)
+                .build();
         // when
         ResponseEntity<?> response = underTest.updateUser(updatedDTO);
 
@@ -418,7 +454,14 @@ public class UserServiceTest {
     @Test
     void whenUpdateUserWithNoExistedUser_ThenReturnBadRequest() {
         // given
-        UserDTO invalidUserDTO = new UserDTO(1, "", "", "", "", null); // Invalid user DTO
+        UserDTO invalidUserDTO = UserDTO.builder()
+                .id(1)
+                .name("")
+                .email("")
+                .password("")
+                .mobileNumber("")
+                .role(null)
+                .build(); // Invalid user DTO
 
         // when
         ResponseEntity<?> response = underTest.updateUser(invalidUserDTO);
@@ -462,8 +505,14 @@ public class UserServiceTest {
         // given
         User user = new User( "Alice", "alice@example.com", "password456", "2345678901", Role.USER);
         repository.save(user);
-        UserDTO duplicateDTO = new UserDTO(1, "Alice Duplicate", "alice.duplicate@example.com", "newpassword456", "2345678902", Role.USER);
-
+        UserDTO duplicateDTO = UserDTO.builder()
+                .id(1)
+                .name("Alice Duplicate")
+                .email("alice.duplicate@example.com")
+                .password("newpassword456")
+                .mobileNumber("2345678902")
+                .role(Role.USER)
+                .build();
         // when
         ResponseEntity<?> response = underTest.addUser(duplicateDTO);
 

@@ -1,5 +1,6 @@
 package com.hotel_service.services;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,14 +59,18 @@ public class UserService {
 
     public ResponseEntity<?> addUser(UserDTO userDTO){
         try {
+            if(userRepository.existsByEmail(userDTO.getEmail())){
+                return ResponseEntity.badRequest().body("Email already in use");
+            }
+
             User user = UserMapper.INSTANCE.toEntity(userDTO);
+            user.setCreatedOn(LocalDateTime.now());
             int id = userRepository.save(user).getId();
             return ResponseEntity.ok(id);
         }
         catch (Exception e){
             e.printStackTrace();
-//            return  ResponseEntity.internalServerError().body(e.getMessage());
-            return  ResponseEntity.internalServerError().body("InternalServerError");
+            return  ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
 
@@ -75,6 +80,7 @@ public class UserService {
 
             if(existedUser.isPresent()){
                 User updatedUser = UserMapper.INSTANCE.updateEntity(userDTO, existedUser.get());
+                updatedUser.setUpdatedOn(LocalDateTime.now());
                 userRepository.save(updatedUser);
                 return ResponseEntity.ok(updatedUser);
             }

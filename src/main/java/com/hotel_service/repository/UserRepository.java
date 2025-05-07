@@ -13,5 +13,5 @@ import com.hotel_service.models.User;
 */
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    
+    public boolean existsByEmail(String email);
 }

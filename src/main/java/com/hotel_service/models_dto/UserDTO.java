@@ -4,6 +4,9 @@ import com.hotel_service.stat.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 /*
     @author Berkeshchuk
@@ -13,9 +16,10 @@ import lombok.Data;
     @since 5/3/2025-11.52
 */
 
-@AllArgsConstructor
+
 @Data
 @Builder
+@AllArgsConstructor
 public class UserDTO {
     private int id;
     private String name;
@@ -23,6 +27,13 @@ public class UserDTO {
     private String password;
     private String mobileNumber;
     private Role role;
+
+    private LocalDateTime createdOn;
+    private LocalDateTime updatedOn;
+
+    public void setRole(String role){
+        this.role = Role.valueOf(role.toUpperCase());
+    }
 }
 
 

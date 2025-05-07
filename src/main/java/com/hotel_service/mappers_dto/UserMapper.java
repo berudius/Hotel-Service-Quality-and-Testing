@@ -21,6 +21,9 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 //    @Mapping(target = "password", ignore = true)
     UserDTO toDTO(User user);
+
+    @Mapping(target = "createdOn", ignore = true)
+    @Mapping(target = "updatedOn", ignore = true)
     User toEntity(UserDTO userDTO);
     List<UserDTO> toListDTO(List<User> users);
 
