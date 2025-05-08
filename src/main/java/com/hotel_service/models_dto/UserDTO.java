@@ -30,10 +30,6 @@ public class UserDTO {
 
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
-
-    public void setRole(String role){
-        this.role = Role.valueOf(role.toUpperCase());
-    }
 }
 
 

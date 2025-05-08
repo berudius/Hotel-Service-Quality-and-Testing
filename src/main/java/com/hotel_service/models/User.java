@@ -40,12 +40,12 @@ public class User {
 
     @Column(updatable = false)
 //    @Setter (AccessLevel.NONE)
-    LocalDateTime createdOn;
+    private LocalDateTime createdOn;
 //    = LocalDateTime.now();
 
     @Column
 //    @Setter (AccessLevel.NONE)
-    LocalDateTime updatedOn;
+    private LocalDateTime updatedOn;
 
 
 //    @PrePersist
