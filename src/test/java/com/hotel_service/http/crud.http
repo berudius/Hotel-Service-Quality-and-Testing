@@ -1,0 +1,38 @@
+### GET All
+GET http://localhost:8080/users
+
+### GET BY ID
+GET http://localhost:8080/users/1
+
+### ADD ONE
+POST http://localhost:8080/users/add_user
+Content-Type: application/json
+#{
+#    "name":"Alex",
+#    "email":"alex@gmail.com",
+#    "password": 1234"",
+#    "mobileNumber":"380974653562",
+#    "role": "USER"
+#}
+
+#### Update one
+PUT http://localhost:8080/users/update_user
+Content-Type: application/json
+#{   "id": 1
+#    "name":"NEW ALEX",
+#    "email":"alex@gmail.com",
+#    "password": 12345678"",
+#    "mobileNumber":"380974653562",
+#    "role": "USER"
+#}
+
+### OR ANY POSSIBLE VARIATIONS TO UPDATE:
+PUT http://localhost:8080/users/update_user
+Content-Type: application/json
+#{   "id": 1
+#    "name":"NEW ALEX",
+#}
+
+
+### DELETE BY ID
+DELETE http://localhost:8080/users/delete_user/1
