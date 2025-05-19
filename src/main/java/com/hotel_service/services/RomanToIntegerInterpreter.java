@@ -36,6 +36,10 @@ public class RomanToIntegerInterpreter {
     };
 
     public static int interpret(String roman) {
+        if (!roman.matches("^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$")) {
+            throw new IllegalArgumentException("Некоректне римське число: " + roman);
+        }
+
         int index = 0;
         int result = 0;
 
