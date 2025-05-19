@@ -10,7 +10,6 @@ package com.hotel_service;
 
 import com.hotel_service.models.User;
 import com.hotel_service.repository.UserRepository;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -28,9 +27,6 @@ public class TestUserRepository {
 
     @Autowired
     UserRepository underTest;
-
-    @Autowired
-    EntityManager entityManager;
 
     @BeforeAll
     void beforeAll() {
