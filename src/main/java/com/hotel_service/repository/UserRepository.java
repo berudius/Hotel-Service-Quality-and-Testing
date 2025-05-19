@@ -4,6 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hotel_service.models.User;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 /*
     @author Berkeshchuk
     @project hotel-service
@@ -15,7 +19,10 @@ import com.hotel_service.models.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
     public boolean existsByEmail(String email);
 
-    public default User findByEmail(String email) {
-        return new User();
-    }
+    public  User findByEmail(String email);
+    List<User> findAllByOrderByNameAsc();
+
+    List<User> findByNameContaining(String namePart);
+
+    List<User> findByCreatedOnBetween(LocalDateTime createdOn, LocalDateTime createdOn2);
 }
