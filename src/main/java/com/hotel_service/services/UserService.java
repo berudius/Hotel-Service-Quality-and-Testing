@@ -27,7 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
-//@Transactional
 public class UserService {
     UserRepository userRepository;
 

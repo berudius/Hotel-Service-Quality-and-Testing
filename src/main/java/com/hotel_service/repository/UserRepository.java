@@ -25,4 +25,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByNameContaining(String namePart);
 
     List<User> findByCreatedOnBetween(LocalDateTime createdOn, LocalDateTime createdOn2);
+
+     boolean existsByName(String name);
 }
