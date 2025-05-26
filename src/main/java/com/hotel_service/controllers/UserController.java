@@ -1,6 +1,8 @@
 package com.hotel_service.controllers;
 
 import com.hotel_service.models_dto.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +22,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserController {
 
+//    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private UserService userService;
+
 
     @GetMapping("users/{id}")
     public ResponseEntity<?> getUser(@PathVariable(name = "id") int id) {
@@ -29,6 +33,7 @@ public class UserController {
 
     @GetMapping("users")
     public ResponseEntity<?> getUsers(){
+//        logger.info("Executing getUsers");
         return userService.getUsers();
     }
 
